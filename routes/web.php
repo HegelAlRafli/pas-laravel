@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DestinasiController;
+use App\Http\Controllers\TiketController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +17,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::group(["prefix" => "/destinasi"], function () {
+    Route::get('/all', [DestinasiController::class, 'index']);
+    Route::get('/detail/{destinasi:nama_destinasi}', [DestinasiController::class, 'show']);
+});
+
+Route::group(["prefix" => "/tiket"], function () {
+    Route::get('/create/{id}', [TiketController::class, 'create']);
+    Route::get('/detail/{destinasi:nama_destinasi}', [DestinasiController::class, 'show']);
 });
